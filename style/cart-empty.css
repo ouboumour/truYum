@@ -1,0 +1,6 @@
+@import "common.css";
+
+.empty-cart-info {
+    font-weight: bold;
+    color: #7e7a7a;
+}

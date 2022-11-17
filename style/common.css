@@ -1,0 +1,90 @@
+body, * {
+    margin: 0;
+    font-family: Arial;
+}
+
+header {
+    background-color: #1F569C;
+    padding: 15px;
+}
+
+#main-content {
+    padding: 80px 50px;
+}
+
+#actions li {
+    display: inline;
+    padding-left: 20px;
+}
+
+footer {
+    position: fixed;
+    bottom: 0;
+    padding: 20px;
+    background-color: #929292;
+    width: 100%;
+}
+
+
+#home {
+    width: 100px;
+    display: flex;
+    position: relative;
+}
+
+.app-name {
+    color: #ffffff;
+    font-size: 20px;
+    position: absolute;
+}
+
+.app-logo {
+    float: right;
+}
+
+.app-logo img{
+    height:20px;
+    width:20px;
+}
+
+#nav-bar a {
+    color: #ffffff;
+}
+
+#home,#actions {
+    display: inline-block;
+}
+
+#actions {
+    float: right;
+}
+
+ul {
+    list-style-type: none;
+}
+
+h1 {
+    text-align: left;
+    font-size: 20px;
+    font-family: Arial;
+    margin-bottom: 20px;
+}
+
+table, th, td {
+    border: 1px solid black;
+    padding: 10px;
+    text-align: left;
+}
+
+#success-info {
+    color: #32cd32;
+    font-weight: bold;
+}
+
+.bold {
+    font-weight: bold;
+}
+
+.empty-cell {
+    border: none;
+}

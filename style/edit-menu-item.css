@@ -1,0 +1,56 @@
+@import "./common.css";
+
+label {
+    color: #7e7a7a;
+    font-weight: bold;
+    display: block;
+    margin-bottom: 4px;
+}
+
+#title {
+}
+
+#main-content {
+    padding: 80px 50px;
+    width: 700px;
+}
+
+#row-1 input{
+    width: 100%;
+}
+
+#no {
+    padding-left: 20px;
+}
+
+.inline {
+    display: flex;
+    justify-content: space-between;
+}
+
+.row {
+    margin-bottom: 20px;
+}
+
+#inStock label {
+    color: black;
+    font-weight: lighter;
+    margin-right: 10px;
+}
+
+input[type="radio"] {
+    margin-right: 4px;
+}
+
+
+.dd {
+    display: flex;
+    justify-content: space-between;
+}
+
+button {
+    background-color: #1F569C;
+    padding: 17px 60px;
+    color: #ffffff;
+    font-weight: bold;
+}

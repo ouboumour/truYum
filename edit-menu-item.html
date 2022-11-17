@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Edit Menu Item</title>
+  <link rel="stylesheet" type="text/css" href="style/edit-menu-item.css">
+  <script type="module" src="js/admin/edit-menu-item.js"></script>
+
+</head>
+<body>
+
+<header id="nav-bar" class="bar"></header>
+
+<section id="main-content">
+  <h1> Edit Menu Item </h1>
+
+    <div id="row-1" class="row">
+      <label for="title">Name</label>
+      <input type="text" name="title" id="title" minlength="2" maxlength="65" required>
+    </div>
+
+    <div id="row-2" class="inline row">
+      <div class="field">
+        <label for="price">Price (Rs.)</label>
+        <input type="number" name="price" id="price" required>
+      </div>
+
+
+      <div class="field radio">
+        <label for="inStock">Active</label>
+        <div id="inStock" class="inline">
+          <input type="radio" name="active" id="yes" checked>
+          <label for="yes">Yes</label>
+          <input type="radio" name="active" id="no">
+          <label for="no">No</label>
+        </div>
+      </div>
+
+      <div class="field">
+        <label for="dateOfLaunch">Date of Launch</label>
+        <input type="date" name="dateOfLaunch" id="dateOfLaunch" required>
+      </div>
+
+      <div class="field">
+        <label for="category">Category</label>
+        <select name="category" id="category">
+          <option value="Main Course" selected>Main Course</option>
+          <option value="Starters">Starters</option>
+          <option value="Dessert">Dessert</option>
+          <option value="Drinks">Drinks</option>
+        </select>
+      </div>
+    </div>
+
+    <div id="row-3" class="row">
+      <label for="freeDelivery">Free Delivery</label>
+      <input type="checkbox" name="freeDelivery" id="freeDelivery">
+    </div>
+
+    <div id="row-4" class="row">
+      <a id="submit-button" href="./edit-menu-item-status.html"">
+        <button type="submit">Save</button>
+      </a>
+    </div>
+
+</section>
+
+<footer id="footer"></footer>
+
+</body>
+</html>

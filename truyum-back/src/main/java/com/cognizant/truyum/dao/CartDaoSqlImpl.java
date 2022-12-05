@@ -12,18 +12,14 @@ import java.util.List;
 public class CartDaoSqlImpl implements CartDao{
     @Override
     public void addCartItem(long userId, long menuItemId) {
-        try {
-            Connection conn = ConnectionHandler.getConnection();
+        final String QUERY = "INSERT INTO carts(item_id, user_id) VALUES (?, ?)";
 
-            String sqlS = "INSERT INTO carts(item_id, user_id) " +
-                          "VALUES (?, ?);";
-            PreparedStatement preparedStatement = conn.prepareStatement(sqlS);
-
-            preparedStatement.setLong(1, menuItemId);
-            preparedStatement.setLong(2, userId);
-
-            preparedStatement.execute();
-
+        try (Connection conn = ConnectionHandler.getConnection();
+             PreparedStatement ps = conn.prepareStatement(QUERY)
+        ) {
+            ps.setLong(1, menuItemId);
+            ps.setLong(2, userId);
+            ps.execute();
         } catch (ClassNotFoundException | SQLException e) {
             e.printStackTrace();
         }
@@ -32,35 +28,32 @@ public class CartDaoSqlImpl implements CartDao{
     @Override
     public List<MenuItem> getAllCartItems(long userId) throws CartEmptyException {
         List<MenuItem> menuItemList = new ArrayList<>();
-        try {
-            Connection conn = ConnectionHandler.getConnection();
+        final String QUERY = "SELECT " +
+                             "       mi.id, " +
+                             "       mi.name, " +
+                             "       mi.free_delivery, " +
+                             "       mi.price " +
+                             "FROM menu_items mi " +
+                             "INNER JOIN carts c2 on mi.id = c2.item_id " +
+                             "INNER JOIN users u on c2.user_id = u.id " +
+                             "WHERE u.id = ?;";
 
-            String sqlS = "SELECT " +
-                          "       mi.id, " +
-                          "       mi.name, " +
-                          "       mi.free_delivery, " +
-                          "       mi.price " +
-                          "FROM menu_items mi " +
-                          "INNER JOIN carts c2 on mi.id = c2.item_id " +
-                          "INNER JOIN users u on c2.user_id = u.id " +
-                          "WHERE u.id = ?;";
-            PreparedStatement preparedStatement = conn.prepareStatement(sqlS);
-
-            preparedStatement.setLong(1, userId);
-            ResultSet resultSet = preparedStatement.executeQuery();
-
-            if (!resultSet.isBeforeFirst()) {
-                throw new CartEmptyException(String.format("The card is empty for the user %d", userId));
+        try (Connection conn = ConnectionHandler.getConnection();
+             PreparedStatement ps = conn.prepareStatement(QUERY)
+        ) {
+            ps.setLong(1, userId);
+            ResultSet rs = ps.executeQuery();
+            if (!rs.isBeforeFirst()) {
+                throw new CartEmptyException(String.format("The user number %d's card is empty", userId));
             }
-            while (resultSet.next()) {
-                 menuItemList.add(new MenuItem(
-                        resultSet.getLong("id"),
-                        resultSet.getString("name"),
-                         resultSet.getBoolean("free_delivery"),
-                        resultSet.getFloat("price")
+            while (rs.next()) {
+                menuItemList.add(new MenuItem(
+                        rs.getLong("id"),
+                        rs.getString("name"),
+                        rs.getBoolean("free_delivery"),
+                        rs.getFloat("price")
                 ));
             }
-
         } catch (ClassNotFoundException | SQLException e) {
             e.printStackTrace();
         }
@@ -69,17 +62,15 @@ public class CartDaoSqlImpl implements CartDao{
 
     @Override
     public void removeCartItem(long userId, long menuItemId) {
-        try {
-            Connection connection = ConnectionHandler.getConnection();
-            String sqlS = "DELETE FROM carts WHERE user_id = ? AND item_id = ?;";
-            PreparedStatement preparedStatement = connection.prepareStatement(sqlS);
-            preparedStatement.setLong(1, userId);
-            preparedStatement.setLong(2, menuItemId);
-
-            preparedStatement.execute();
+        final String QUERY = "DELETE FROM carts WHERE user_id = ? AND item_id = ?";
+        try(Connection connection = ConnectionHandler.getConnection();
+            PreparedStatement ps = connection.prepareStatement(QUERY);
+        ) {
+            ps.setLong(1, userId);
+            ps.setLong(2, menuItemId);
+            ps.execute();
         } catch (ClassNotFoundException | SQLException e) {
             e.printStackTrace();
         }
-
     }
 }

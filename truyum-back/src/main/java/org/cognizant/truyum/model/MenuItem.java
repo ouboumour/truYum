@@ -46,6 +46,18 @@ public class MenuItem {
         this.category = category;
     }
 
+    public MenuItem(
+            long id,
+            String name,
+            boolean freeDelivery,
+            float price
+    ) {
+        this.id = id;
+        this.name = name;
+        this.freeDelivery = freeDelivery;
+        this.price = price;
+    }
+
     public long getId() {
         return id;
     }

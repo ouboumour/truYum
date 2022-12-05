@@ -85,7 +85,7 @@ public class MenuItemDaoSqlImpl implements MenuItemDao{
     public void modifyMenuItem(MenuItem menuItem) {
         try {
             Connection conn = ConnectionHandler.getConnection();
-            String SqlS = "UPDATE menu_items " +
+            String sqlS = "UPDATE menu_items " +
                           "SET name = ?, " +
                           "    price = ?, " +
                           "    active = ?, " +
@@ -94,7 +94,7 @@ public class MenuItemDaoSqlImpl implements MenuItemDao{
                           "    free_delivery = ? " +
                           "WHERE id = ?;";
 
-            PreparedStatement preparedStatement = conn.prepareStatement(SqlS);
+            PreparedStatement preparedStatement = conn.prepareStatement(sqlS);
 
             preparedStatement.setString(1, menuItem.getName());
             preparedStatement.setFloat(2, menuItem.getPrice());

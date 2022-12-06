@@ -8,13 +8,18 @@ public class Cart {
     private double total;
 
     public void addToCard(MenuItem menuItem) {
+        total += menuItem.getPrice();
         menuItemList.add(menuItem);
-        total++;
+        System.out.println(menuItem.getPrice());
+        System.out.println(total);
     }
 
     public void removeFromCard(MenuItem menuItem) {
-        menuItemList.remove(menuItem);
-        total--;
+        if (menuItemList.remove(menuItem)) {
+            total -= menuItem.getPrice();
+        }
+        System.out.println(menuItem.getPrice());
+        System.out.println(total);
     }
 
     public void removeFromCardById(long menuItemId) {
@@ -22,7 +27,6 @@ public class Cart {
                 .filter(item -> item.getId() == menuItemId)
                 .findFirst()
                 .ifPresent(this::removeFromCard);
-        total--;
     }
 
     public List<MenuItem> getMenuItemList() {

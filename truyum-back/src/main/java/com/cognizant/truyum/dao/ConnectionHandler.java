@@ -1,6 +1,7 @@
 package com.cognizant.truyum.dao;
 
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -11,13 +12,9 @@ public class ConnectionHandler {
     private static Connection con = null;
     private static Properties props = new Properties();
 
-
-    //ENSURE YOU DON'T CHANGE THE BELOW CODE WHEN YOU SUBMIT
     public static Connection getConnection() throws ClassNotFoundException, SQLException {
-        try{
 
-            FileInputStream fis = null;
-            fis = new FileInputStream("/Users/ouss/Projects/truYum/truyum-back/src/main/resources/connection.properties");
+        try(FileInputStream fis = new FileInputStream("truyum-back/src/main/resources/connection.properties")) {
             props.load(fis);
 
             // load the Driver Class
@@ -28,9 +25,10 @@ public class ConnectionHandler {
                     props.getProperty("connection-url"),
                     props.getProperty("user"),
                     props.getProperty("password"));
-        }
-        catch(IOException e){
-            e.printStackTrace();
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
         return con;
     }
